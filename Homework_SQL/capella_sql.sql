@@ -1,6 +1,7 @@
 USE sakila;
 #1a. Display the first and last names of all actors from the table actor
 SELECT first_name, last_name FROM actor;
+
 #1b. Display the first and last name of each actor in a single column in upper case letters. Name the column Actor Name.
 SELECT concat(first_name, ' ', last_name) AS "Actor Name" FROM actor;
 
@@ -10,7 +11,7 @@ WHERE first_name="Joe";
 
 #2b. Find all actors whose last name contain the letters GEN:
 SELECT last_name FROM actor
-where last_name like "%GEN%";
+WHERE last_name LIKE "%GEN%";
 
 #2c. Find all actors whose last names contain the letters LI. This time, order the rows by last name and first name, in that order:
 SELECT last_name, first_name FROM actor
@@ -61,14 +62,14 @@ INNER JOIN address ON staff.address_id=address.address_id;
 SELECT staff.first_name, staff.last_name,
 SUM(amount)
 FROM staff
-INNER Join payment ON staff.staff_id=payment.staff_id
-WHERE MONTH(payment.payment_date)=8 and YEAR(payment.payment_date)=2005
+INNER JOIN payment ON staff.staff_id=payment.staff_id
+WHERE MONTH(payment.payment_date)=8 AND YEAR(payment.payment_date)=2005
 GROUP BY staff.staff_id;
 
 #6c. List each film and the number of actors who are listed for that film. Use tables film_actor and film. Use inner join.
 SELECT  film_actor.film_id, film.title, COUNT(film_actor.film_id)
 FROM film_actor
-INNER Join film ON film_actor.film_id=film.film_id
+INNER JOIN film ON film_actor.film_id=film.film_id
 GROUP BY film_actor.film_id;
 
 #6d. How many copies of the film Hunchback Impossible exist in the inventory system?
@@ -88,13 +89,13 @@ ORDER BY last_name ASC;
 
 #7a. The music of Queen and Kris Kristofferson have seen an unlikely resurgence. As an unintended consequence, films starting with the letters K and Q have also soared in popularity. Use subqueries to display the titles of movies starting with the letters K and Q whose language is English.
 
-Select title 
+SELECT title 
 FROM film
 WHERE language_id IN
 (SELECT language_id
 FROM language
 WHERE name= 'English') AND
-title Like 'K%' or title Like 'Q%';
+title LIKE 'K%' OR title LIKE 'Q%';
 
 #7b. Use subqueries to display all actors who appear in the film Alone Trip.
 SELECT first_name, last_name
@@ -173,10 +174,10 @@ GROUP BY name
 ORDER BY SUM(payment.amount) DESC
 LIMIT 5;
 
-8b. How would you display the view that you created in 8a?
+#8b. How would you display the view that you created in 8a?
 SELECT * FROM genre_rev;
 
-8c. You find that you no longer need the view top_five_genres. Write a query to delete it.
+#8c. You find that you no longer need the view top_five_genres. Write a query to delete it.
 DROP VIEW genre_rev;
 
 
